@@ -172,3 +172,11 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+/dvc
+/mlruns
+/data
+/outdata
+/notebooks/.ipynb_checkpoints
+/.ipynb_checkpoints
+/scripts/mlruns
+mlartifacts/

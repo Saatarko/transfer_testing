@@ -1,0 +1,242 @@
+stages:
+
+  generate_mnist_data_stage:
+    cmd: python scripts/data_processing.py --tasks data:generate_mnist_data
+    deps:
+    - scripts/data_processing.py
+    outs:
+    - data/processed/dataset_mnist.npz
+
+
+  train_nn_stage:
+    cmd: python scripts/data_processing.py --tasks data:train_nn
+    deps:
+      - scripts/nn_training.py
+    outs:
+      - outdata/models/mnist_nn_model.pth
+      - outdata/images/mnist_training_metrics.png
+
+  evaluate_model_on_test_stage:
+    cmd: python scripts/data_processing.py --tasks data:evaluate_model_on_test
+    deps:
+      - scripts/nn_training.py
+      - outdata/models/mnist_nn_model.pth
+
+  generate_fash_mnist_data_stage:
+    cmd: python scripts/data_processing.py --tasks data:generate_fash_mnist_data
+    deps:
+      - scripts/data_processing.py
+    outs:
+      - data/processed/dataset_fashion_mnist.npz
+
+  train_no_frease_nn_stage:
+    cmd: python scripts/data_processing.py --tasks data:train_no_frease_nn
+    deps:
+      - scripts/nn_training.py
+    outs:
+      - outdata/models/mnist_fash_no_frease_nn_model.pth
+      - outdata/images/mnist_fash_no_frease_training_metrics.png
+
+  evaluate_fash_no_frease_model_on_test_stage:
+    cmd: python scripts/data_processing.py --tasks data:evaluate_fash_no_frease_model_on_test
+    deps:
+      - scripts/nn_training.py
+      - outdata/models/mnist_fash_no_frease_nn_model.pth
+
+  train_full_frease_nn_stage:
+    cmd: python scripts/data_processing.py --tasks data:train_full_frease_nn
+    deps:
+      - scripts/nn_training.py
+    outs:
+      - outdata/models/mnist_full_frease_nn_model.pth
+      - outdata/images/mnist_full_frease_training_metrics.png
+
+  evaluate_fash_full_frease_model_on_test_stage:
+    cmd: python scripts/data_processing.py --tasks data:evaluate_fash_full_frease_model_on_test
+    deps:
+      - scripts/nn_training.py
+      - outdata/models/mnist_full_frease_nn_model.pth
+
+  train_part_frease_nn_stage:
+    cmd: python scripts/data_processing.py --tasks data:train_part_frease_nn
+    deps:
+      - scripts/nn_training.py
+    outs:
+      - outdata/models/mnist_part_frease_nn_model.pth
+      - outdata/images/mnist_part_frease_training_metrics.png
+
+  evaluate_part_full_frease_model_on_test_stage:
+    cmd: python scripts/data_processing.py --tasks data:evaluate_part_full_frease_model_on_test
+    deps:
+      - scripts/nn_training.py
+      - outdata/models/mnist_part_frease_nn_model.pth
+
+  download_and_prepare_oxford_pets_stage:
+    cmd: python scripts/data_processing.py --tasks data:download_and_prepare_oxford_pets
+    deps:
+      - scripts/data_processing.py
+    outs:
+      - data/processed/oxford.npz
+
+  train_cnn_stage:
+    cmd: python scripts/nn_training.py --tasks data:train_cnn
+    deps:
+      - scripts/nn_training.py
+    outs:
+      - outdata/models/oxford_cnn_model.pth
+      - outdata/images/oxford_training_metrics.png
+
+  evaluate_cnn_oxford_stage:
+    cmd: python scripts/nn_training.py --tasks data:evaluate_cnn_oxford
+    deps:
+      - scripts/nn_training.py
+      - outdata/models/oxford_cnn_model.pth
+
+
+  download_imagenette_stage:
+    cmd: python scripts/data_processing.py --tasks data:download_and_prepare_imagenette
+    deps:
+      - scripts/data_processing.py
+    outs:
+      - data/processed/imagenette.npz
+
+
+  train_cnn_imagenette_stage:
+    cmd: python scripts/nn_training.py --tasks data:train_cnn_imagenette
+    deps:
+      - scripts/nn_training.py
+    outs:
+      - outdata/models/imagenette_cnn_model.pth
+      - outdata/images/imagenette_training_metrics.png
+
+  evaluate_cnn_imagenette_stage:
+    cmd: python scripts/nn_training.py --tasks data:evaluate_cnn_imagenette
+    deps:
+      - scripts/nn_training.py
+      - outdata/models/imagenette_cnn_model.pth
+
+  train_oxford_no_frease_nn_stage:
+    cmd: python scripts/nn_training.py --tasks data:train_oxford_no_frease_nn
+    deps:
+      - scripts/nn_training.py
+    outs:
+      - outdata/models/oxford_no_frease_nn_model.pth
+      - outdata/images/oxford_no_frease_training_metrics.png
+
+  evaluate_oxford_no_frease_model_on_test_stage:
+    cmd: python scripts/nn_training.py --tasks data:evaluate_oxford_no_frease_model_on_test
+    deps:
+      - scripts/nn_training.py
+      - outdata/models/oxford_no_frease_nn_model.pth
+
+  train_oxford_full_frease_nn_stage:
+    cmd: python scripts/nn_training.py --tasks data:train_oxford_full_frease_nn
+    deps:
+      - scripts/nn_training.py
+    outs:
+      - outdata/models/oxford_full_frease_nn_model.pth
+      - outdata/images/oxford_full_frease_training_metrics.png
+
+  evaluate_oxford_full_frease_model_on_test_stage:
+    cmd: python scripts/nn_training.py --tasks data:evaluate_oxford_full_frease_model_on_test
+    deps:
+      - scripts/nn_training.py
+      - outdata/models/oxford_full_frease_nn_model.pth
+
+  train_oxford_part_frease_nn_stage:
+    cmd: python scripts/nn_training.py --tasks data:train_oxford_part_frease_nn
+    deps:
+      - scripts/nn_training.py
+    outs:
+      - outdata/models/oxford_part_frease_nn_model.pth
+      - outdata/images/oxford_part_frease_training_metrics.png
+
+  evaluate_oxford_part_frease_model_on_test_stage:
+    cmd: python scripts/nn_training.py --tasks data:evaluate_oxford_part_frease_model_on_test
+    deps:
+      - scripts/nn_training.py
+      - outdata/models/oxford_part_frease_nn_model.pth
+
+  download_and_prepare_tiny_imagenet_stage:
+    cmd: python scripts/data_processing.py --tasks data:download_and_prepare_tiny_imagenet
+    deps:
+      - scripts/data_processing.py
+    outs:
+      - data/processed/tiny_imagenet_20_classes.npz
+
+  train_oxford_resnet18_stage:
+    cmd: python scripts/nn_training.py --tasks data:train_oxford_resnet18
+    deps:
+      - scripts/nn_training.py
+    outs:
+      - outdata/models/resnet18_oxford.pth
+      - outdata/images/resnet18_oxford_metrics.png
+
+  evaluate_resnet18_oxford_part_frease_model_on_test_stage:
+    cmd: python scripts/nn_training.py --tasks data:evaluate_resnet18_oxford_part_frease_model_on_test
+    deps:
+      - scripts/nn_training.py
+      - outdata/models/resnet18_oxford.pth
+
+  prepare_animals_dataset_stage:
+    cmd: python scripts/data_processing.py --tasks data:prepare_animals_dataset
+    deps:
+      - scripts/data_processing.py
+    outs:
+      - data/processed/animals.npz
+
+  train_animal_no_freese_stage:
+    cmd: python scripts/nn_training.py --tasks data:train_animal_no_freese
+    deps:
+      - scripts/nn_training.py
+    outs:
+      - outdata/models/animals_no_frease_nn_model.pth
+      - outdata/images/animals_no_frease_training_metrics.png
+
+  eveluate_animals_no_freease_stage:
+    cmd: python scripts/nn_training.py --tasks data:eveluate_animals_no_freease
+    deps:
+      - scripts/nn_training.py
+      - outdata/models/animals_no_frease_nn_model.pth
+
+  train_animal_full_freese_stage:
+    cmd: python scripts/nn_training.py --tasks data:train_animal_full_freese
+    deps:
+      - scripts/nn_training.py
+    outs:
+      - outdata/models/animals_full_frease_nn_model.pth
+      - outdata/images/animals_full_frease_training_metrics.png
+
+  eveluate_animals_full_freease_stage:
+    cmd: python scripts/nn_training.py --tasks data:eveluate_animals_full_freease
+    deps:
+      - scripts/nn_training.py
+      - outdata/models/animals_full_frease_nn_model.pth
+
+  train_animal_part_freese_stage:
+    cmd: python scripts/nn_training.py --tasks data:train_animal_part_freese
+    deps:
+      - scripts/nn_training.py
+    outs:
+      - outdata/models/animals_part_frease_nn_model.pth
+      - outdata/images/animals_part_frease_training_metrics.png
+
+  eveluate_animals_part_freease_stage:
+    cmd: python scripts/nn_training.py --tasks data:eveluate_animals_part_freease
+    deps:
+      - scripts/nn_training.py
+      - outdata/models/animals_part_frease_nn_model.pth
+
+  train_animals_resnet18_stage:
+    cmd: python scripts/nn_training.py --tasks data:train_animals_resnet18
+    deps:
+      - scripts/nn_training.py
+    outs:
+      - outdata/models/resnet18_animals.pth
+      - outdata/images/resnet18_animals_metrics.png
+
+  evaluate_resnet18_animals_stage:
+    cmd: python scripts/nn_training.py --tasks data:evaluate_resnet18_animals
+    deps:
+      - scripts/nn_training.py
+      - outdata/models/resnet18_animals.pth

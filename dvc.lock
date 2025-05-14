@@ -1,0 +1,440 @@
+schema: '2.0'
+stages:
+  generate_mnist_data_stage:
+    cmd: python scripts/data_processing.py --tasks data:generate_mnist_data
+    deps:
+    - path: scripts/data_processing.py
+      hash: md5
+      md5: 6a0fadef19d40cb4cfb0fc6a7fb6b917
+      size: 2630
+    outs:
+    - path: data/processed/dataset_mnist.npz
+      hash: md5
+      md5: 4647f06a5fcc521cc902a07192ed4fe7
+      size: 11092302
+  train_nn_stage:
+    cmd: python scripts/data_processing.py --tasks data:train_nn
+    deps:
+    - path: scripts/nn_training.py
+      hash: md5
+      md5: e21c90334d76565a4dfbf10117cffc0b
+      size: 13286
+    outs:
+    - path: outdata/images/mnist_training_metrics.png
+      hash: md5
+      md5: 7f3f3b4a9afa43d99bc116ce5de889df
+      size: 56800
+    - path: outdata/models/mnist_nn_model.pth
+      hash: md5
+      md5: ac8f5176091b33e5bb5b87b6bdb1b7b3
+      size: 439465
+  evaluate_model_on_test_stage:
+    cmd: python scripts/data_processing.py --tasks data:evaluate_model_on_test
+    deps:
+    - path: outdata/models/mnist_nn_model.pth
+      hash: md5
+      md5: ac8f5176091b33e5bb5b87b6bdb1b7b3
+      size: 439465
+    - path: scripts/nn_training.py
+      hash: md5
+      md5: e21c90334d76565a4dfbf10117cffc0b
+      size: 13286
+  generate_fash_mnist_data_stage:
+    cmd: python scripts/data_processing.py --tasks data:generate_fash_mnist_data
+    deps:
+    - path: scripts/data_processing.py
+      hash: md5
+      md5: 59552ed7e697d48890f617e3a9dff7e5
+      size: 3762
+    outs:
+    - path: data/processed/dataset_fashion_mnist.npz
+      hash: md5
+      md5: b32f40e473cd056853330e2e0bfd7ee9
+      size: 50785294
+  train_no_frease_nn_stage:
+    cmd: python scripts/data_processing.py --tasks data:train_no_frease_nn
+    deps:
+    - path: scripts/nn_training.py
+      hash: md5
+      md5: e21c90334d76565a4dfbf10117cffc0b
+      size: 13286
+    outs:
+    - path: outdata/images/mnist_fash_no_frease_training_metrics.png
+      hash: md5
+      md5: 7da4b519490b1e86eec6c8af2d3da5b3
+      size: 56868
+    - path: outdata/models/mnist_fash_no_frease_nn_model.pth
+      hash: md5
+      md5: 7e7a6408d9a551e4a71ae04c7551f397
+      size: 440989
+  evaluate_fash_no_frease_model_on_test_stage:
+    cmd: python scripts/data_processing.py --tasks data:evaluate_fash_no_frease_model_on_test
+    deps:
+    - path: outdata/models/mnist_fash_no_frease_nn_model.pth
+      hash: md5
+      md5: 7e7a6408d9a551e4a71ae04c7551f397
+      size: 440989
+    - path: scripts/nn_training.py
+      hash: md5
+      md5: e21c90334d76565a4dfbf10117cffc0b
+      size: 13286
+  train_full_frease_nn_stage:
+    cmd: python scripts/data_processing.py --tasks data:train_full_frease_nn
+    deps:
+    - path: scripts/nn_training.py
+      hash: md5
+      md5: 88e2df90883b9afae4ccf07244cec5e2
+      size: 19804
+    outs:
+    - path: outdata/images/mnist_full_frease_training_metrics.png
+      hash: md5
+      md5: 14840f7ad894457042bfcaadb14dbb86
+      size: 55662
+    - path: outdata/models/mnist_full_frease_nn_model.pth
+      hash: md5
+      md5: 418554da2627a7ed78ed73397a27b7c4
+      size: 440953
+  evaluate_fash_full_frease_model_on_test_stage:
+    cmd: python scripts/data_processing.py --tasks data:evaluate_fash_full_frease_model_on_test
+    deps:
+    - path: outdata/models/mnist_full_frease_nn_model.pth
+      hash: md5
+      md5: 418554da2627a7ed78ed73397a27b7c4
+      size: 440953
+    - path: scripts/nn_training.py
+      hash: md5
+      md5: 88e2df90883b9afae4ccf07244cec5e2
+      size: 19804
+  train_part_frease_nn_stage:
+    cmd: python scripts/data_processing.py --tasks data:train_part_frease_nn
+    deps:
+    - path: scripts/nn_training.py
+      hash: md5
+      md5: af05bf7efb293558ae94ea691427cd8c
+      size: 26707
+    outs:
+    - path: outdata/images/mnist_part_frease_training_metrics.png
+      hash: md5
+      md5: 45a1028756dcdb66ea85f0a58ecba655
+      size: 54779
+    - path: outdata/models/mnist_part_frease_nn_model.pth
+      hash: md5
+      md5: 2e782d4cd448d66c1f4e62a425901999
+      size: 440953
+  evaluate_part_full_frease_model_on_test_stage:
+    cmd: python scripts/data_processing.py --tasks data:evaluate_part_full_frease_model_on_test
+    deps:
+    - path: outdata/models/mnist_part_frease_nn_model.pth
+      hash: md5
+      md5: 2e782d4cd448d66c1f4e62a425901999
+      size: 440953
+    - path: scripts/nn_training.py
+      hash: md5
+      md5: af05bf7efb293558ae94ea691427cd8c
+      size: 26707
+  download_and_prepare_oxford_pets_stage:
+    cmd: python scripts/data_processing.py --tasks data:download_and_prepare_oxford_pets
+    deps:
+    - path: scripts/data_processing.py
+      hash: md5
+      md5: 63e3784d8f81d17932d07dddfbf39f7d
+      size: 5460
+    outs:
+    - path: data/processed/oxford.npz
+      hash: md5
+      md5: 01ba28d73358363b3d5c0eee347edd70
+      size: 62791414
+  train_cnn_stage:
+    cmd: python scripts/nn_training.py --tasks data:train_cnn
+    deps:
+    - path: scripts/nn_training.py
+      hash: md5
+      md5: f511e90b3ebfeaeac53e7b718e148c77
+      size: 33997
+    outs:
+    - path: outdata/images/oxford_training_metrics.png
+      hash: md5
+      md5: a48c4234b3922b65ed93c49b1e39a118
+      size: 67675
+    - path: outdata/models/oxford_cnn_model.pth
+      hash: md5
+      md5: 2c04e8691f193d80ba56b43c8084ee7c
+      size: 641237
+  evaluate_cnn_oxford_stage:
+    cmd: python scripts/nn_training.py --tasks data:evaluate_cnn_oxford
+    deps:
+    - path: outdata/models/oxford_cnn_model.pth
+      hash: md5
+      md5: 2c04e8691f193d80ba56b43c8084ee7c
+      size: 641237
+    - path: scripts/nn_training.py
+      hash: md5
+      md5: f511e90b3ebfeaeac53e7b718e148c77
+      size: 33997
+  download_imagenette_stage:
+    cmd: python scripts/data_processing.py --tasks data:download_and_prepare_imagenette
+    deps:
+    - path: scripts/data_processing.py
+      hash: md5
+      md5: 192c59c1dda3469b490d4567845e451f
+      size: 7407
+    outs:
+    - path: data/processed/imagenette.npz
+      hash: md5
+      md5: 09b235c855a6d6c68049d774d5f48a42
+      size: 218115055
+  train_cnn_imagenette_stage:
+    cmd: python scripts/nn_training.py --tasks data:train_cnn_imagenette
+    deps:
+    - path: scripts/nn_training.py
+      hash: md5
+      md5: 3373f237f96cdcb4ab3dd235f3baf8bf
+      size: 45973
+    outs:
+    - path: outdata/images/imagenette_training_metrics.png
+      hash: md5
+      md5: 69bbc9fee24be1d932f82bb298c1a1a9
+      size: 56310
+    - path: outdata/models/imagenette_cnn_model.pth
+      hash: md5
+      md5: 40fc919109f8753d09e0696c544324ec
+      size: 642581
+  evaluate_cnn_imagenette_stage:
+    cmd: python scripts/nn_training.py --tasks data:evaluate_cnn_imagenette
+    deps:
+    - path: outdata/models/imagenette_cnn_model.pth
+      hash: md5
+      md5: 40fc919109f8753d09e0696c544324ec
+      size: 642581
+    - path: scripts/nn_training.py
+      hash: md5
+      md5: 3373f237f96cdcb4ab3dd235f3baf8bf
+      size: 45973
+  train_oxford_no_frease_nn_stage:
+    cmd: python scripts/nn_training.py --tasks data:train_oxford_no_frease_nn
+    deps:
+    - path: scripts/nn_training.py
+      hash: md5
+      md5: 07803a64787b7ae6b8933fae963e341e
+      size: 61376
+    outs:
+    - path: outdata/images/oxford_no_frease_training_metrics.png
+      hash: md5
+      md5: 5f7ddc94efc1d5dbccfa157a0522eeb5
+      size: 59155
+    - path: outdata/models/oxford_no_frease_nn_model.pth
+      hash: md5
+      md5: 412227c89c3f373d92b60794b5ac10f5
+      size: 649765
+  evaluate_oxford_no_frease_model_on_test_stage:
+    cmd: python scripts/nn_training.py --tasks data:evaluate_oxford_no_frease_model_on_test
+    deps:
+    - path: outdata/models/oxford_no_frease_nn_model.pth
+      hash: md5
+      md5: 412227c89c3f373d92b60794b5ac10f5
+      size: 649765
+    - path: scripts/nn_training.py
+      hash: md5
+      md5: 07803a64787b7ae6b8933fae963e341e
+      size: 61376
+  train_oxford_full_frease_nn_stage:
+    cmd: python scripts/nn_training.py --tasks data:train_oxford_full_frease_nn
+    deps:
+    - path: scripts/nn_training.py
+      hash: md5
+      md5: 3f709723d6e896f7d0cbe99922b9c530
+      size: 61101
+    outs:
+    - path: outdata/images/oxford_full_frease_training_metrics.png
+      hash: md5
+      md5: 1a2adc7efdb158d0e8f3ce559e75c3bd
+      size: 84832
+    - path: outdata/models/oxford_full_frease_nn_model.pth
+      hash: md5
+      md5: a3b2a8bce33f6da900eaddcadc7f3853
+      size: 649797
+  evaluate_oxford_full_frease_model_on_test_stage:
+    cmd: python scripts/nn_training.py --tasks data:evaluate_oxford_full_frease_model_on_test
+    deps:
+    - path: outdata/models/oxford_full_frease_nn_model.pth
+      hash: md5
+      md5: a3b2a8bce33f6da900eaddcadc7f3853
+      size: 649797
+    - path: scripts/nn_training.py
+      hash: md5
+      md5: 3f709723d6e896f7d0cbe99922b9c530
+      size: 61101
+  train_oxford_part_frease_nn_stage:
+    cmd: python scripts/nn_training.py --tasks data:train_oxford_part_frease_nn
+    deps:
+    - path: scripts/nn_training.py
+      hash: md5
+      md5: 8d57d79b64dab41e0ca916e1c081ba90
+      size: 69176
+    outs:
+    - path: outdata/images/oxford_part_frease_training_metrics.png
+      hash: md5
+      md5: 97966f34d1b19633c99dee4d98262896
+      size: 72173
+    - path: outdata/models/oxford_part_frease_nn_model.pth
+      hash: md5
+      md5: a5c91f240fc8ca83ba468d2e3d2f1dbc
+      size: 649797
+  evaluate_oxford_part_frease_model_on_test_stage:
+    cmd: python scripts/nn_training.py --tasks data:evaluate_oxford_part_frease_model_on_test
+    deps:
+    - path: outdata/models/oxford_part_frease_nn_model.pth
+      hash: md5
+      md5: a5c91f240fc8ca83ba468d2e3d2f1dbc
+      size: 649797
+    - path: scripts/nn_training.py
+      hash: md5
+      md5: 8d57d79b64dab41e0ca916e1c081ba90
+      size: 69176
+  train_oxford_resnet18_stage:
+    cmd: python scripts/nn_training.py --tasks data:train_oxford_resnet18
+    deps:
+    - path: scripts/nn_training.py
+      hash: md5
+      md5: bc40f33efe63703e74ff33ab610098d3
+      size: 76703
+    outs:
+    - path: outdata/images/resnet18_oxford_metrics.png
+      hash: md5
+      md5: eb9f05c09c9f173a1bed9cc0d90af278
+      size: 48108
+    - path: outdata/models/resnet18_oxford.pth
+      hash: md5
+      md5: 934597d092711944b6cca66d2c98b46a
+      size: 44862219
+  evaluate_resnet18_oxford_part_frease_model_on_test_stage:
+    cmd: python scripts/nn_training.py --tasks data:evaluate_resnet18_oxford_part_frease_model_on_test
+    deps:
+    - path: outdata/models/resnet18_oxford.pth
+      hash: md5
+      md5: 934597d092711944b6cca66d2c98b46a
+      size: 44862219
+    - path: scripts/nn_training.py
+      hash: md5
+      md5: bc40f33efe63703e74ff33ab610098d3
+      size: 76703
+  prepare_animals_dataset_stage:
+    cmd: python scripts/data_processing.py --tasks data:prepare_animals_dataset
+    deps:
+    - path: scripts/data_processing.py
+      hash: md5
+      md5: 905b4a4008ce740b15882c6000bbae00
+      size: 11978
+    outs:
+    - path: data/processed/animals.npz
+      hash: md5
+      md5: c45db09d2bff1aadbc94dfa0e2d36be7
+      size: 443631326
+  train_animal_no_freese_stage:
+    cmd: python scripts/nn_training.py --tasks data:train_animal_no_freese
+    deps:
+    - path: scripts/nn_training.py
+      hash: md5
+      md5: 08a31c04a97b30fafe88f2dca576d972
+      size: 84127
+    outs:
+    - path: outdata/images/animals_no_frease_training_metrics.png
+      hash: md5
+      md5: 70637687a25b773e4a96adfc69e23f38
+      size: 53005
+    - path: outdata/models/animals_no_frease_nn_model.pth
+      hash: md5
+      md5: cb23df8efd714fb12da41afbba840d40
+      size: 642741
+  eveluate_animals_no_freease_stage:
+    cmd: python scripts/nn_training.py --tasks data:eveluate_animals_no_freease
+    deps:
+    - path: outdata/models/animals_no_frease_nn_model.pth
+      hash: md5
+      md5: cb23df8efd714fb12da41afbba840d40
+      size: 642741
+    - path: scripts/nn_training.py
+      hash: md5
+      md5: 08a31c04a97b30fafe88f2dca576d972
+      size: 84127
+  train_animal_full_freese_stage:
+    cmd: python scripts/nn_training.py --tasks data:train_animal_full_freese
+    deps:
+    - path: scripts/nn_training.py
+      hash: md5
+      md5: bb309d1f3be7053f557205527d4d84e6
+      size: 91805
+    outs:
+    - path: outdata/images/animals_full_frease_training_metrics.png
+      hash: md5
+      md5: c081c6047017b783f3836bf55d2fe9af
+      size: 61431
+    - path: outdata/models/animals_full_frease_nn_model.pth
+      hash: md5
+      md5: 25dd39f456372db1f74dbc9df943566f
+      size: 642773
+  eveluate_animals_full_freease_stage:
+    cmd: python scripts/nn_training.py --tasks data:eveluate_animals_full_freease
+    deps:
+    - path: outdata/models/animals_full_frease_nn_model.pth
+      hash: md5
+      md5: 25dd39f456372db1f74dbc9df943566f
+      size: 642773
+    - path: scripts/nn_training.py
+      hash: md5
+      md5: bb309d1f3be7053f557205527d4d84e6
+      size: 91805
+  train_animal_part_freese_stage:
+    cmd: python scripts/nn_training.py --tasks data:train_animal_part_freese
+    deps:
+    - path: scripts/nn_training.py
+      hash: md5
+      md5: 7db335a7f7a126628e83d64dec1ac81b
+      size: 99811
+    outs:
+    - path: outdata/images/animals_part_frease_training_metrics.png
+      hash: md5
+      md5: 0cdff57e3c006e85a34c2b46dc507410
+      size: 56779
+    - path: outdata/models/animals_part_frease_nn_model.pth
+      hash: md5
+      md5: bf7015f49f25ba1177ff0fe8b32e7fc5
+      size: 642773
+  eveluate_animals_part_freease_stage:
+    cmd: python scripts/nn_training.py --tasks data:eveluate_animals_part_freease
+    deps:
+    - path: outdata/models/animals_part_frease_nn_model.pth
+      hash: md5
+      md5: bf7015f49f25ba1177ff0fe8b32e7fc5
+      size: 642773
+    - path: scripts/nn_training.py
+      hash: md5
+      md5: 7db335a7f7a126628e83d64dec1ac81b
+      size: 99811
+  train_animals_resnet18_stage:
+    cmd: python scripts/nn_training.py --tasks data:train_animals_resnet18
+    deps:
+    - path: scripts/nn_training.py
+      hash: md5
+      md5: ce15aec50ffb47ccdf5bfba6d3e9e73c
+      size: 107150
+    outs:
+    - path: outdata/images/resnet18_animals_metrics.png
+      hash: md5
+      md5: 68ef5a6c3ee27043daba83683b5c9258
+      size: 51765
+    - path: outdata/models/resnet18_animals.pth
+      hash: md5
+      md5: ae7936958fb7fbbd000073d118d29d3c
+      size: 44806923
+  evaluate_resnet18_animals_stage:
+    cmd: python scripts/nn_training.py --tasks data:evaluate_resnet18_animals
+    deps:
+    - path: outdata/models/resnet18_animals.pth
+      hash: md5
+      md5: ae7936958fb7fbbd000073d118d29d3c
+      size: 44806923
+    - path: scripts/nn_training.py
+      hash: md5
+      md5: ce15aec50ffb47ccdf5bfba6d3e9e73c
+      size: 107150
